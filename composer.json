@@ -1,0 +1,17 @@
+{
+    "name": "larakit/morph",
+    "description": "Модуль многоцелевой, автоматически привязываемый к моделям (оценки, комментарии, жалобы, модерация)",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Larakit\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Larakit\\MorphServiceProvider"
+            ]
+        }
+    }
+}
