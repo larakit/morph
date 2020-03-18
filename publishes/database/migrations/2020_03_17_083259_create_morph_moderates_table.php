@@ -13,8 +13,13 @@ class CreateMorphModeratesTable extends Migration
      */
     public function up()
     {
-        Schema::create('morph_moderates', function (Blueprint $table) {
+        Schema::create('morph_moderates', function (Blueprint $table)
+        {
             $table->bigIncrements('id');
+            $table->smallInteger('result')->default(0);
+            $table->integer('moderateable_id');
+            $table->string('moderateable_type');
+            $table->index(['moderateable_id', 'moderateable_type']);
             $table->timestamps();
         });
     }

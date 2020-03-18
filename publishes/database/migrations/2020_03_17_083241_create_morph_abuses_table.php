@@ -13,8 +13,18 @@ class CreateMorphAbusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('morph_abuses', function (Blueprint $table) {
+        Schema::create('morph_abuses', function (Blueprint $table)
+        {
             $table->bigIncrements('id');
+            $table->string('ip')
+                  ->nullable()
+            ;
+            $table->integer('usr_id')
+                  ->default(0)
+            ;
+            $table->integer('abuseable_id');
+            $table->string('abuseable_type');
+            $table->index(['abuseable_id', 'abuseable_type']);
             $table->timestamps();
         });
     }
