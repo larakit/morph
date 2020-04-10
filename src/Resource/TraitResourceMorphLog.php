@@ -1,6 +1,6 @@
 <?php
 
-namespace Larakit\Resources;
+namespace Larakit\Resource;
 
 
 /**

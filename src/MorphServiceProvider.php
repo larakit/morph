@@ -25,6 +25,10 @@ class MorphServiceProvider extends \Illuminate\Support\ServiceProvider {
      * @return void
      */
     public function register() {
+        foreach (rglob('*.php', 0, __DIR__ . '/../boot') as $file) {
+            include_once $file;
+        }
+
 
         //        \Route::middleware('api')
         //              ->prefix('api')

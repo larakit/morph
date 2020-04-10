@@ -11,10 +11,6 @@ class CreateMorphTagsTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-        });
         Schema::create('morph_tags', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('tag_id');
@@ -24,6 +20,17 @@ class CreateMorphTagsTable extends Migration {
             $table->index(['tagable_id', 'tagable_type']);
             $table->timestamps();
         });
+        foreach (
+            DB::table('taggables')
+              ->get() as $item
+        ) {
+            \Larakit\MorphTag::firstOrCreate([
+                'tag_id'        => $item->tag_id,
+                'tagable_id'    => $item->taggable_id,
+                'tagable_type' => $item->taggable_type,
+            ]);
+        }
+
     }
 
     /**
@@ -33,6 +40,5 @@ class CreateMorphTagsTable extends Migration {
      */
     public function down() {
         Schema::dropIfExists('morph_tags');
-        Schema::dropIfExists('tags');
     }
 }
