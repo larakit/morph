@@ -18,14 +18,15 @@ class ResourcePluginMorphTag extends ResourcePlugin {
 
     public function appendData($ret) {
         if (in_array(TraitModelMorphTag::class, $this->model_traits)) {
-            $ret['morph_tags'] = [];
-            foreach ($this->model->morph_tags as $tag) {
-                $ret['morph_tags'][] = [
-                    'id'       => $tag->id,
-                    'toString' => $tag->name,
-                ];
+            if ($this->model->relationLoaded('morph_tags')) {
+                $ret['morph_tags'] = [];
+                foreach ($this->model->morph_tags as $tag) {
+                    $ret['morph_tags'][] = [
+                        'id'       => $tag->id,
+                        'toString' => $tag->name,
+                    ];
+                }
             }
-
         }
 
         return $ret;

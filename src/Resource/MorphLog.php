@@ -12,8 +12,6 @@ class MorphLog extends JsonResource {
 
         return [
             'id'         => $this->id,
-            //            'logable_id'   => (int) $this->logable_id,
-            //            'logable_type' => $this->logable_type,
             'comment'    => $this->comment,
             'created_at' => $this->created_at->format('d.m.Y H:i:s'),
             'time'       => $this->created_at->format('H:i:s'),

@@ -16,6 +16,8 @@ class CreateMorphCommentsTable extends Migration {
             $table->text('comment');
             $table->integer('author_id')
                   ->index();
+            $table->string('ip')
+                  ->index();
             $table->integer('parent_id')
                   ->default(0)
                   ->index();
