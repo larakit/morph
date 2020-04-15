@@ -4,4 +4,5 @@
     \Larakit\Resource\Plugins\ResourcePluginMorphLog::class,
     \Larakit\Resource\Plugins\ResourcePluginMorphGallery::class,
     \Larakit\Resource\Plugins\ResourcePluginMorphAttach::class,
+    \Larakit\Resource\Plugins\ResourcePluginMorphRate::class,
 ]);
