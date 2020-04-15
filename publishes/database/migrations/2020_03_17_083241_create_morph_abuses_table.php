@@ -22,9 +22,7 @@ class CreateMorphAbusesTable extends Migration
             $table->integer('usr_id')
                   ->default(0)
             ;
-            $table->integer('abuseable_id');
-            $table->string('abuseable_type');
-            $table->index(['abuseable_id', 'abuseable_type']);
+            $table->morphs('abuseable');
             $table->timestamps();
         });
     }

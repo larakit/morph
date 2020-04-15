@@ -10,6 +10,7 @@ class MorphComment extends Model {
     protected $fillable = [
         'comment',
         'author_id',
+        'ip',
         'parent_id',
         'commentable_id',
         'commentable_type',

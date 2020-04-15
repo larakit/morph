@@ -2,16 +2,19 @@
 
 namespace Larakit\Controllers;
 
-class AppMorphRateController extends ApiController {
+class AppMorphCommentController extends ApiController {
     function response($morph, $message = null) {
         try {
-            $morph->load('morph_rate_me');
-            $morph->load('morph_rate');
+
+            $morph->loadCount('morph_abuses')
+                  ->load('morph_abuse_me')
+                  ->load('morph_moderate');
 
             return [
                 'data'    => [
-                    'me'  => $morph->morph_rate_me ? $morph->morph_rate_me->rate : 0,
-                    'all' => $morph->morph_rate ? $morph->morph_rate->rate_avg : 0,
+                    'morph_moderate'     => $morph->morph_moderate ? $morph->morph_moderate->result : 0,
+                    'morph_abuse_me'     => $morph->morph_abuse_me ? true : false,
+                    'morph_abuses_count' => $morph->morph_abuses_count ? $morph->morph_abuses_count : 0,
                 ],
                 'result'  => 'success',
                 'message' => $message,
@@ -34,8 +37,7 @@ class AppMorphRateController extends ApiController {
     }
 
     function set($morph) {
-        $value = \Request::input('rate');
-        $result = $morph->addMorphRate($value);
+        $result = $morph->addMorphComment();
         $morph->refresh();
 
         return $this->response($morph, $result);

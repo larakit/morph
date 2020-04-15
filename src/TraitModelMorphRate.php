@@ -26,17 +26,23 @@ trait TraitModelMorphRate {
     }
 
     function addMorphRate($value) {
-        $value      = (float) $value;
-        $value      = min($value, 5);
-        $value      = max($value, 1);
-        $item       = MorphRateItem::firstOrCreate([
+        $value = (float) $value;
+        $value = min($value, 5);
+        $value = max($value, 0);
+        $item  = MorphRateItem::firstOrCreate([
             'rateable_id'   => $this->id,
             'rateable_type' => $this->getMorphClass(),
             'usr_id'        => me('id') ? me('id') : 0,
             'ip'            => me('id') ? null : \Request::ip(),
         ]);
-        $item->rate = $value;
-        $item->save();
+        if ($value) {
+            $item->rate = $value;
+            $item->save();
+            $result = 'Оценка записана';
+        } else {
+            $item->delete();
+            $result = 'Оценка удалена';
+        }
         $rate_avg       = MorphRateItem::where('rateable_id', '=', $this->id)
                                        ->where('rateable_type', '=', $this->getMorphClass())
                                        ->avg('rate');
@@ -44,7 +50,9 @@ trait TraitModelMorphRate {
             'rateable_id'   => $this->id,
             'rateable_type' => $this->getMorphClass(),
         ]);
-        $rate->rate_avg = $rate_avg;
+        $rate->rate_avg = (float)$rate_avg;
         $rate->save();
+
+        return $result;
     }
 }

@@ -15,17 +15,17 @@ class CreateMorphCommentsTable extends Migration {
             $table->bigIncrements('id');
             $table->text('comment');
             $table->integer('author_id')
+                  ->default(0)
                   ->index();
             $table->string('ip')
+                  ->nullable()
                   ->index();
             $table->integer('parent_id')
                   ->default(0)
                   ->index();
-            $table->integer('commentable_id');
-            $table->string('commentable_type');
+            $table->morphs('commentable');
             $table->string('path', 128)
                   ->nullable();
-            $table->index(['commentable_type', 'commentable_id']);
             $table->timestamps();
         });
     }

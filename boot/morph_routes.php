@@ -21,6 +21,10 @@ Route::group([
           ->name('api.morph_rate');
     \Route::post('/rate', 'AppMorphRateController@set')
           ->name('api.morph_rate');
+    \Route::get('/abuse', 'AppMorphAbuseController@get')
+          ->name('api.morph_abuse');
+    \Route::post('/abuse', 'AppMorphAbuseController@set')
+          ->name('api.morph_abuse');
 });
 
 //dump(Larakit\Morph\Morph::hashEncode(\App\Product::class, 1));

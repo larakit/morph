@@ -17,9 +17,7 @@ class CreateMorphModeratesTable extends Migration
         {
             $table->bigIncrements('id');
             $table->smallInteger('result')->default(0);
-            $table->integer('moderateable_id');
-            $table->string('moderateable_type');
-            $table->index(['moderateable_id', 'moderateable_type']);
+            $table->morphs('moderateable');
             $table->timestamps();
         });
     }
