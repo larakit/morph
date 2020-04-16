@@ -25,6 +25,10 @@ Route::group([
           ->name('api.morph_abuse');
     \Route::post('/abuse', 'AppMorphAbuseController@set')
           ->name('api.morph_abuse');
+    \Route::get('/comment', 'AppMorphCommentController@get')
+          ->name('api.morph_comment');
+    \Route::post('/comment', 'AppMorphCommentController@set')
+          ->name('api.morph_comment');
 });
 
 //dump(Larakit\Morph\Morph::hashEncode(\App\Product::class, 1));

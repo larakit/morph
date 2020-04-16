@@ -2,19 +2,25 @@
 
 namespace Larakit\Controllers;
 
+use Illuminate\Support\Arr;
+use Larakit\Resource\MorphComment;
+
 class AppMorphCommentController extends ApiController {
     function response($morph, $message = null) {
         try {
 
-            $morph->loadCount('morph_abuses')
-                  ->load('morph_abuse_me')
-                  ->load('morph_moderate');
-
+            $morph->loadCount('morph_comments');
+            $comments = [];
+            foreach ($morph->morph_comments as $morph_comment) {
+                $path = $morph_comment->path;
+                $path = 'items.'.str_replace('.', '.items.', $path);
+                $morph_comment = new MorphComment($morph_comment);
+                Arr::set($comments, $path,resource_to_array($morph_comment));
+            }
             return [
                 'data'    => [
-                    'morph_moderate'     => $morph->morph_moderate ? $morph->morph_moderate->result : 0,
-                    'morph_abuse_me'     => $morph->morph_abuse_me ? true : false,
-                    'morph_abuses_count' => $morph->morph_abuses_count ? $morph->morph_abuses_count : 0,
+                    'comments' => $comments,
+                    'me'       => me(),
                 ],
                 'result'  => 'success',
                 'message' => $message,

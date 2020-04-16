@@ -11,15 +11,14 @@ namespace Larakit;
  */
 trait TraitModelMorphComment {
     public function morph_comments() {
-        return $this->morphMany(MorphComment::class, 'logable')
-                    ->orderBy('id', 'desc');
+        return $this->morphMany(MorphComment::class, 'commentable')
+                    ->orderBy('path');
     }
 
     function makePath($id, $parent_id = 0) {
     }
 
     function addMorphComment($comment, $parent_id = 0, $author_id = null) {
-        $parent_id = 14;
         if (!$author_id) {
             $author_id = me('id');
         } else {
@@ -36,13 +35,13 @@ trait TraitModelMorphComment {
         $path    = [];
         //проверяем что родительский коммент комментрирует ту же сущность
         $parent = MorphComment::find($parent_id);
-        if($parent){
-            if(($parent->commentable_id == $comment->commentable_id) && ($parent->commentable_type == $comment->commentable_type)){
-                $path[]  = str_pad($parent->id, 10, '_',STR_PAD_LEFT);
+        if ($parent) {
+            if (($parent->commentable_id == $comment->commentable_id) && ($parent->commentable_type == $comment->commentable_type)) {
+                $path[] = $parent->path;
             }
         }
-        $path[]  = str_pad($comment->id, 10, '_', STR_PAD_LEFT);
-        $comment->path  = implode('.', $path);
+        $path[]        = str_pad($comment->id, 10, '_', STR_PAD_LEFT);
+        $comment->path = implode('.', $path);
         $comment->save();
     }
 }
