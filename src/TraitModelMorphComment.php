@@ -44,6 +44,5 @@ trait TraitModelMorphComment {
         $path[]  = str_pad($comment->id, 10, '_', STR_PAD_LEFT);
         $comment->path  = implode('.', $path);
         $comment->save();
-
     }
 }
