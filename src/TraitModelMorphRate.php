@@ -46,11 +46,15 @@ trait TraitModelMorphRate {
         $rate_avg       = MorphRateItem::where('rateable_id', '=', $this->id)
                                        ->where('rateable_type', '=', $this->getMorphClass())
                                        ->avg('rate');
+        $rate_sum       = MorphRateItem::where('rateable_id', '=', $this->id)
+                                       ->where('rateable_type', '=', $this->getMorphClass())
+                                       ->sum('rate');
         $rate           = MorphRate::firstOrCreate([
             'rateable_id'   => $this->id,
             'rateable_type' => $this->getMorphClass(),
         ]);
-        $rate->rate_avg = (float)$rate_avg;
+        $rate->rate_avg = (float) $rate_avg;
+        $rate->rate_sum = (float) $rate_sum;
         $rate->save();
 
         return $result;

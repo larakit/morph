@@ -17,6 +17,10 @@ Route::group([
         'Morph' => '([0-9a-z]{32}\-[0-9a-zA-Z]{2,32})',
     ],
 ], function () {
+    \Route::get('/plusminus', 'AppMorphPlusminusController@get')
+          ->name('api.morph_plusminus');
+    \Route::post('/plusminus', 'AppMorphPlusminusController@set')
+          ->name('api.morph_plusminus');
     \Route::get('/rate', 'AppMorphRateController@get')
           ->name('api.morph_rate');
     \Route::post('/rate', 'AppMorphRateController@set')

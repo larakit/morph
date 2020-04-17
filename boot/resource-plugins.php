@@ -7,4 +7,5 @@
     \Larakit\Resource\Plugins\ResourcePluginMorphRate::class,
     \Larakit\Resource\Plugins\ResourcePluginMorphAbuse::class,
     \Larakit\Resource\Plugins\ResourcePluginMorphComment::class,
+    \Larakit\Resource\Plugins\ResourcePluginMorphPlusminus::class,
 ]);
