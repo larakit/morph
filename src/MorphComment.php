@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class MorphComment extends Model {
+    use TraitModelMorphPlusminus;
     protected $table    = 'morph_comments';
     protected $fillable = [
         'comment',

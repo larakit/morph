@@ -12,6 +12,14 @@ namespace Larakit\Morph;
  * @author  Alexey Berdnikov <aberdnikov@gmail.com>
  */
 class Morph {
+    static $model_classes = [];
+
+    static function registerModelClass($model_class) {
+        if(!in_array($model_class, self::$model_classes)){
+            self::$model_classes[] = $model_class;
+        }
+    }
+
     static function reverseModel($hash) {
         return config('larakit-morph.' . $hash);
     }
@@ -24,7 +32,9 @@ class Morph {
         $id          = $id[0];
         if ($model_class && $id) {
             $d = new $model_class();
+
             return $model_class::find($id);
+
             return [
                 'class' => $model_class,
                 'id'    => $id,

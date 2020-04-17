@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Larakit\Helpers\HelperText;
 use Larakit\LangManager;
+use Larakit\Morph\Morph;
 
 class LarakitMorphCommand extends Command {
     /**
@@ -41,9 +42,12 @@ class LarakitMorphCommand extends Command {
         $ret = [];
         foreach (get_declared_classes() as $class) {
             if (is_subclass_of($class, Model::class)) {
-                $key       = md5($class);
-                $ret[$key] = $class;
+                Morph::registerModelClass($class);
             }
+        }
+        foreach (Morph::$model_classes as $model_class) {
+            $key       = md5($model_class);
+            $ret[$key] = $model_class;
         }
         $file = base_path('config/larakit-morph.php');
         file_put_contents($file, '<?php' . PHP_EOL . 'return ' . var_export($ret, true) . ';');
