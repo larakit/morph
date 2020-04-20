@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MorphComment extends Model {
     use TraitModelMorphPlusminus;
+    use TraitModelMorphAbuse;
     protected $table    = 'morph_comments';
     protected $fillable = [
         'comment',
