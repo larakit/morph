@@ -5,16 +5,14 @@ namespace Larakit;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
-class MorphLog extends Model {
-    protected $table    = 'morph_logs';
+class MorphView extends Model {
+    protected $table    = 'morph_views';
     protected $fillable = [
-        'logable_id',
-        'logable_type',
-        'comment',
-        'user_id',
+        'viewedable_id',
+        'viewedable_type',
     ];
 
-    public function logable() {
+    public function viewedable() {
         return $this->morphTo();
     }
 
