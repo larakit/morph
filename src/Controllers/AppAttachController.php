@@ -43,7 +43,7 @@ class AppAttachController extends ApiController {
     function blockUpload($model, $block) {
         $file   = \Request::file('file');
         $model->addMorphAttach($file, $block);
-        return $this->apiResponseSuccess(HelperAttach::toArray($attachable), __('vendor.attach.toastr.blockUpload'));
+        return $this->apiResponseSuccess(HelperAttach::toArray($model), __('vendor.attach.toastr.blockUpload'));
     }
 
     function update($model) {
@@ -75,7 +75,7 @@ class AppAttachController extends ApiController {
         $model_class = get_class($attachable);
         //        dd($model_class);
         $model->delete();
-        $attachable = $model_class::with('attaches')
+        $attachable = $model_class::with('morph_attaches')
                                   ->find($attachable->id);
 
         return $this->apiResponseSuccess(HelperAttach::toArray($attachable), __('vendor.attach.toastr.delete'));
