@@ -2,6 +2,7 @@
 
 namespace Larakit\Controllers;
 
+use App\Http\Resources\User;
 use Illuminate\Support\Arr;
 use Larakit\Resource\MorphComment;
 
@@ -36,7 +37,7 @@ class AppMorphCommentController extends ApiController {
             return [
                 'data'    => [
                     'comments' => $comments ? $this->dropKey($comments) : ['items' => []],
-                    'me'       => me(),
+                    'me'       => new User(me()),
                 ],
                 'result'  => 'success',
                 'message' => $message,
