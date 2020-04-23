@@ -2,6 +2,7 @@
 
 namespace Larakit\Resource;
 
+use App\Http\Resources\User;
 use Larakit\Resource\JsonResource;
 
 class MorphComment extends JsonResource {
@@ -20,7 +21,7 @@ class MorphComment extends JsonResource {
             'date'             => $this->created_at->format('d.m.Y'),
             'level'            => count(explode('.', $this->path)),
             'author_id'        => $this->author ? $this->author->id : null,
-            'author_name'      => $this->author ? $this->author->name : 'Robot',
+            'author'           => new User($this->author),
             'is_comment'       => false,
             'is_show_children' => true,
         ];
