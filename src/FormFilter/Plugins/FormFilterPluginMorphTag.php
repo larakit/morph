@@ -6,6 +6,7 @@
 namespace Larakit\FormFilter\Plugins;
 
 use Larakit\TraitModelMorphGallery;
+use Larakit\TraitModelMorphTag;
 
 /**
  * Class ResourcePluginThumbs
@@ -16,13 +17,13 @@ use Larakit\TraitModelMorphGallery;
 class FormFilterPluginMorphTag extends FormFilterPlugin {
 
     public function before() {
-        if (in_array(TraitModelMorphGallery::class, $this->model_traits)) {
+        if (in_array(TraitModelMorphTag::class, $this->model_traits)) {
             $this->formfilter->model->with('morph_tags');
         }
     }
 
     public function after() {
-        if (in_array(TraitModelMorphGallery::class, $this->model_traits)) {
+        if (in_array(TraitModelMorphTag::class, $this->model_traits)) {
             $this->formfilter->addFilterTags();
         }
     }
