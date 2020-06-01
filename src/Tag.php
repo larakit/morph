@@ -10,4 +10,17 @@ class Tag extends Model {
         'name',
     ];
 
+    public $tagable_class;
+
+    static function forModel($model_class_name) {
+        $ret                = new Tag();
+        $ret->tagable_class = $model_class_name;
+
+        return $ret;
+    }
+
+    public function models() {
+        return $this->morphedByMany($this->tagable_class, 'tagable', 'morph_tags');
+    }
+
 }
